@@ -9,7 +9,16 @@ import (
 )
 
 func main() {
-	response, err := http.Get("https://books.toscrape.com/")
+	n := 5
+	for page := 1; page <= n; page++ {
+		fmt.Printf("Страница номер %d\n", page)
+		url := fmt.Sprintf("https://books.toscrape.com/catalogue/page-%d.html", page)
+		ParsePage(url)
+	}
+}
+
+func ParsePage(url string) {
+	response, err := http.Get(url)
 	if err != nil {
 		log.Fatal("Ошибка Get:", err)
 	}
